@@ -9,6 +9,7 @@ export class TodoRoutes {
     const todoController = new TodoController();
 
     router.get('/', todoController.getTodos);
+    router.get('/:id', todoController.getTodoById);
 
     return router;
 

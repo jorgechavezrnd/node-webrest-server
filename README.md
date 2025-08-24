@@ -1,5 +1,9 @@
 # Rest Web Server
 
+## Dev
+
+1. Clonar el .env.template y crear el .env
+
 ## Generar certificados con OpenSSL
 
 1. Para generar un certificado autofirmado con OpenSSL, puedes usar el siguiente comando:

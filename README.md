@@ -4,6 +4,7 @@
 
 1. Clonar el .env.template y crear el .env
 2. Ejecutar el comando ```docker compose up -d```
+3. Generar los archivos de prisma ```npx prisma migrate dev --name init```
 
 ## Generar certificados con OpenSSL
 

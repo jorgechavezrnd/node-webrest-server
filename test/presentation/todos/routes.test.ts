@@ -103,4 +103,69 @@ describe('Todo route testing', () => {
 
   });
 
+  test('should return an updated TODO api/todos/:id', async () => {
+
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/todos/${ todo.id }`)
+      .send({ text: 'Hola mundo UPDATED', completedAt: '2025-10-21' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: expect.any(Number),
+      text: 'Hola mundo UPDATED',
+      completedAt: '2025-10-21T00:00:00.000Z',
+    });
+
+  });
+
+  //TODO: realizar la operación con errores personalizados
+  test('should return 404 if TODO not found for update', async () => {
+
+    const todoId = 999;
+
+    const { body } = await request(testServer.app)
+      .put(`/api/todos/${ todoId }`)
+      .send({ text: 'Hola mundo UPDATED', completedAt: '2025-10-21' })
+      .expect(400);
+
+    expect(body).toEqual({ error: `Todo with id ${ todoId } not found` });
+
+  });
+
+  test('should return an updated TODO only the date', async () => {
+
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/todos/${ todo.id }`)
+      .send({ completedAt: '2025-10-21' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: expect.any(Number),
+      text: todo.text,
+      completedAt: '2025-10-21T00:00:00.000Z',
+    });
+
+  });
+
+  test('should return an updated TODO only the text', async () => {
+
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/todos/${ todo.id }`)
+      .send({ text: 'Hola mundo UPDATED' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: expect.any(Number),
+      text: 'Hola mundo UPDATED',
+      completedAt: todo.completedAt,
+    });
+
+  });
+
 });

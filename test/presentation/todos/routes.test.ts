@@ -32,7 +32,7 @@ describe('Todo route testing', () => {
     expect(body.length).toBe(2);
     expect(body[0].text).toBe(todo1.text);
     expect(body[1].text).toBe(todo2.text);
-    expect(body[0].completedAt).toBeUndefined();
+    expect(body[0].completedAt).toBeNull();
 
   });
 
@@ -49,7 +49,7 @@ describe('Todo route testing', () => {
     expect(body).toEqual({
       id: todo.id,
       text: todo.text,
-      completedAt: undefined,
+      completedAt: todo.completedAt,
     });
 
   });
